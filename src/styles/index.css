@@ -79,6 +79,6 @@ body {
 .page-nav-bar {
   background-color: #3296fa;
 }
-.page-nav-bar .van-nav-bar_title {
+.page-nav-bar .van-nav-bar__title {
   color: #fff;
 }
