@@ -6,7 +6,7 @@
 
     <!-- 标签导航栏 -->
     <!-- route 开启路由模式 to 页面路由 -->
-    <van-tabbar class="layout-tabbar" v-model="active" route>
+    <van-tabbar class="layout-tabbar" route>
       <van-tabbar-item to="/">
         <template #icon>
           <van-icon class="toutiao toutiao-shouye"></van-icon>
@@ -29,7 +29,7 @@
         <template #icon>
           <van-icon class="toutiao toutiao-wode"></van-icon>
         </template>
-        <span class="text">我的</span>
+        <span class="text">{{ $store.state.user ? '我的' : '未登录'}}</span>
       </van-tabbar-item>
     </van-tabbar>
     <!-- /标签导航栏 -->
@@ -43,7 +43,6 @@ export default {
   props: {},
   data () {
     return {
-      active: 0
     }
   },
   computed: {},

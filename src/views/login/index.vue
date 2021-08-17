@@ -1,7 +1,11 @@
 <template>
   <div class="login-container">
     <!-- 导航栏 -->
-    <van-nav-bar class="page-nav-bar" title="登录" />
+    <van-nav-bar class="page-nav-bar" title="登录">
+      <template #left>
+        <van-icon name="cross" @click="$router.back()" />
+      </template>
+    </van-nav-bar>
     <!-- /导航栏 -->
     <!-- 登录表单 -->
     <van-form @submit="onSubmit" ref="loginForm">
@@ -40,8 +44,8 @@ export default {
   data () {
     return {
       user: {
-        mobile: '', // 测试手机号
-        code: '' // 测试验证码
+        mobile: '13911111111', // 测试手机号
+        code: '246810' // 测试验证码
       },
       userFormRules: {
         mobile: [{
@@ -84,6 +88,8 @@ export default {
         // console.log(res)
         this.$store.commit('setUser', data.data)
         this.$toast.success('登录成功')
+        // 登录成功，跳转回原页面，back 方式不严谨
+        this.$router.back()
       } catch (err) {
         if (err.response.status === 400) {
           // console.log('手机号或验证码错误')
