@@ -15,6 +15,9 @@ import './styles/index.less'
 // 加载动态设置 REM 基准值
 import 'amfe-flexible'
 
+// 加载 dayjs 初始化配置
+import './utils/dayjs'
+
 const app = createApp(App)
 
 // 注册使用 Vant 组件库

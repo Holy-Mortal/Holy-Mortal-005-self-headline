@@ -1,12 +1,12 @@
 <template>
   <div class="login-container">
-    <!-- 导航栏 -->
+    <!-- 头部导航栏 -->
     <van-nav-bar class="page-nav-bar" title="登录">
       <template #left>
         <van-icon name="cross" @click="$router.back()" />
       </template>
     </van-nav-bar>
-    <!-- /导航栏 -->
+    <!-- /头部导航栏 -->
     <!-- 登录表单 -->
     <van-form @submit="onSubmit" ref="loginForm">
       <van-cell-group>
