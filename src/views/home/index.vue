@@ -18,12 +18,12 @@
         <article-list :channel="channel" />
         <!-- /文章列表 -->
       </van-tab>
-        <template #nav-right>
-          <div class="placeholder"></div>
-          <div class="hamburger-btn" @click="isChannelEditShow = true">
-            <i class="toutiao toutiao-gengduo"></i>
-          </div>
-        </template>
+      <template #nav-right>
+        <div class="placeholder"></div>
+        <div class="hamburger-btn" @click="isChannelEditShow = true">
+          <i class="toutiao toutiao-gengduo"></i>
+        </div>
+      </template>
     </van-tabs>
     <!-- /频道列表 -->
 
