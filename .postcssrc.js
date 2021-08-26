@@ -13,6 +13,9 @@ module.exports = {
         return file.indexOf('vant') !== -1 ? 37.5 : 75
       }, 
       propList: ['*'], // 用来设定可以从 px 转为 rem 的属性,`*` 就是所有属性都要转换
+
+      // 配置不用转换的样式资源
+      exclude: 'github-markdown'
     }
   }
 }

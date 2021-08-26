@@ -1,5 +1,9 @@
 <template>
-  <van-cell class="article-item">
+  <!-- :to="'/article/' + article.art_id" -->
+  <!-- :to="`/article/${article.art_id}`" -->
+  <!-- :to="{name: 'article', params: {articleId: article.art_id}}" -->
+  <!-- 根据路由名称 name 进行跳转，传递路由动态参数 params，属性名：路由路径设计动态参数名称 articleId  -->
+  <van-cell class="article-item" :to="{name: 'article', params: {articleId: article.art_id}}">
     <template #title>
       <div class="title van-multi-ellipsis--l2">{{article.title}}</div>
     </template>
