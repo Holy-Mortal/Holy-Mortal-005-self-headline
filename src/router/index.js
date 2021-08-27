@@ -40,7 +40,12 @@ const routes = [
   }, {
     path: '/user/:userId',
     name: 'user',
-    component: () => import('@/views/user')
+    component: () => import('@/views/user'),
+    props: true // 开启 Props 传参，把路由参数映射到组件的 props 数据
+  }, {
+    path: '/user/profile',
+    name: 'user-profile',
+    component: () => import('@/views/user-profile')
   }
 ]
 
