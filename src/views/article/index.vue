@@ -18,7 +18,7 @@
         <!-- /文章标题 -->
 
         <!-- 用户信息 -->
-        <van-cell class="user-info" center :border="false">
+        <van-cell class="user-info" center :border="false" :to="{name: 'user', params: {userId: article.art_id}}">
           <template #icon>
             <van-image class="avatar" round fit="cover" :src="article.aut_photo" />
           </template>
@@ -44,10 +44,15 @@
         <div class="markdown-body article-content" v-html="article.content" ref="article-content"></div>
         <van-divider>正文结束</van-divider>
         <!-- /文章内容 -->
+
+        <!-- 文章评论列表 -->
+        <comment-list :source="article.art_id" :list="commentList" @onload-success="totalCommentCount = $event.total_count" />
+        <!-- /文章评论列表 -->
+
         <!-- 底部区域 -->
         <div class="article-bottom">
-          <van-button class="comment-btn" type="default" round size="small">写评论</van-button>
-          <van-icon name="comment-o" color="#777" info="123" />
+          <van-button class="comment-btn" type="default" round size="small" @click="isPostShow = true">写评论</van-button>
+          <van-icon name="comment-o" color="#777" :badge="totalCommentCount" />
           <collect-article class="btn-item" v-model:isCollected="article.is_collected" :article-id="article.art_id" />
           <!-- <van-button icon="star-o" class="btn-item" /> -->
           <like-article class="btn-item" v-model:numAttitude="article.attitude" :article-id="article.art_id" />
@@ -55,6 +60,17 @@
           <van-icon name="share" color="#777"></van-icon>
         </div>
         <!-- /底部区域 -->
+
+        <!-- 发布评论 -->
+        <van-popup v-model:show="isPostShow" position="bottom">
+          <comment-post :target="article.art_id" @post-success="onPostSuccess" />
+        </van-popup>
+        <!-- /发布评论 -->
+        <!-- 评论回复 -->
+        <!-- <van-popup v-model="isReplyShow" position="bottom" style="height: 95%">
+          <comment-reply />
+        </van-popup> -->
+        <!-- /评论回复 -->
       </div>
       <!-- /加载完成-文章详情 -->
 
@@ -83,13 +99,19 @@ import { ImagePreview } from 'vant'
 import FollowUser from '@/components/follow-user'
 import CollectArticle from '@/components/collect-article'
 import LikeArticle from '@/components/like-article/'
+import CommentList from './components/comment-list'
+import CommentPost from './components/comment-post'
+// import CommentReply from './components/comment-reply'
 
 export default {
   name: 'ArticleIndex',
   components: {
     FollowUser,
     CollectArticle,
-    LikeArticle
+    LikeArticle,
+    CommentList,
+    CommentPost
+    // CommentReply
   },
   props: {
     articleId: {
@@ -101,7 +123,12 @@ export default {
     return {
       article: {}, // 文章详情
       loading: true, // 加载中的 loading 状态
-      errStatus: 0 // 失败的状态码
+      errStatus: 0, // 失败的状态码
+      totalCommentCount: 0,
+      isPostShow: false, // 控制发布评论的点击状态
+      commentList: [], // 评论列表
+      isReplyShow: false,
+      currentComment: {} // 点击回复的那个评论对象
     }
   },
   computed: {
@@ -156,6 +183,12 @@ export default {
           })
         }
       })
+    },
+    onPostSuccess (data) {
+      // 关闭弹出层
+      this.isPostShow = false
+      // 将发布内容显示到列表顶部
+      this.commentList.unshift(data.new_obj)
     }
   }
 }
@@ -239,13 +272,12 @@ export default {
         /deep/ .van-icon {
           font-size: 40px;
         }
-        .comment-icon {
+        /deep/ .van-badge--fixed {
           top: 2px;
-          color: #777;
-          .van-info {
-            font-size: 16px;
-            background-color: #e22829;
-          }
+        }
+        /deep/ .van-badge {
+          font-size: 16px;
+          background-color: #e22829;
         }
         .btn-item {
           border: none;

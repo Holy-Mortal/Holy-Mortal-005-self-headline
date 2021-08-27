@@ -56,3 +56,11 @@ export const deleteLike = target => {
     url: `/app/v1_0/article/likings/${target}`
   })
 }
+
+/* 请求获取用户文章列表数据 */
+export const getArticleByUser = userId => {
+  return request({
+    method: 'GET',
+    url: `/app/v1_0/user/${userId}/articles`
+  })
+}

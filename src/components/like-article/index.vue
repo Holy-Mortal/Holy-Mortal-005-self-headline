@@ -39,6 +39,7 @@ export default {
           await addLike(this.articleId)
           status = 1
         }
+        // 更新视图
         this.$emit('update:numAttitude', status)
         this.$toast.success(status === 1 ? '点赞成功' : '取消点赞')
       } catch (err) {
